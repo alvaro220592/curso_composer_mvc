@@ -1,0 +1,53 @@
+aula 2 - ferramentas e recursos
+    no frontend será usado o materialize css (nesse curso é com arquivo baixado)
+    pediu pra baixar o composer
+
+aula 3 - config do projeto
+    config o arquivo de config do apache pra direcionar o usuario pra uma pag especifica caso ele digite um endereço nada a ver na pagina
+    pra isso, no windows deixa como 'on' o modo rewrite
+    no windows vai no arquivo apache2.conf e deixa 'AllowOverride All'. No linux faça isso e depois entra no terminal e poe 'sudo a2enmod rewrite', restart apache
+
+aula 4 - montando estrutura e instalando extensões(vscode)
+    extensoes:
+        php file types
+        php autocomplete
+        php namespace resolver
+        php getters & setters
+
+aula 5 -  Restringindo o acesso aos diretórios do projeto
+    cria o arquivo .htaccess na pasta app
+
+aula 6 - config o arquivo .htaccess
+    pra redirect o usuario pra pag principal caso ele digite algo q nao exista
+
+    na pasta raiz do projeto, cria um .htaccess com u,ma config diferente (final com f de file e d de directory)
+    aqui no pc só funcionou com hifen antes do f e do d
+
+aula 7 - criando o arquivo composer.json
+    esse arquivo gerencia as dependencias da aplicação(arquivos de config tipo css, js, classes, etc)
+    esse arquivo é criado com o 'composer init' e não manualmente. O autoload é definido nele e dentro de psr-4 foi definido pra carregar a pasta app e a core
+    em baixo do psr-4 tem o 'files' pra carregar os arquivos de configuração
+
+    foi criada uma pasta chamada core e uma classe Router nela com namespace core.
+    foi criada uma pasta chamada config com um arquivo 'config.php' nela
+
+    foi dado o 'composer dumpautoload' e aí surgiu a pasta vendor
+
+aula 8 - arquivo autoload do composer
+    primeiramente foram testadas as classes pra ver se o autoload ta bom
+    pra isso foi testada a classe Router dentro de core/ e no index foi chamada mas nao sem antes colocar o 'use core/Router;' e depois o require_onde "__DIR__ . '/vendor/autoload.php'"
+
+aula 9 - criando oa rquivo config - uma das dependencias gerenciadas pelo composer
+    embora não instanciado, o config.php já é mostrado no index com qualquer alteração feita porque foi definido no autoload.php nos 'files'
+    a pasta do materialize foi arrastada pro dir config
+    
+    IMPORTANTE: o config.php ta sendo carregado no index, então pra chamar um css ou qualquer coisa, é preciso linkar como se o config.php estivesse na raiz do projeto
+    então foram chamados o css e o js, sendo este chamado antes de fechar o body
+
+aula 10 - criando a estrutura do sistema de rotas
+    isso é gerenciado através de url. localhost/projeto/classe/pagina/parametro(se necessario)
+    os atributos serão definidos na classe Router
+    O atributo '$controller' armazena o nome da classe principal, o '$method' é a pagina e o '$param', adivinha, todos antes do constructor
+
+    na função 'url()' foi chamado o INPUT_GET com o nome da variável de url declarada lá no .htaccess, q no caso chama 'router'
+    esse input vai pra uma variavel chamada $parse_url q vai ser quebrada com o explode, gerando assim os dados de classe, metodo e parametro de acordo com os índices, tipo localhost/curso tal/site/edit/1

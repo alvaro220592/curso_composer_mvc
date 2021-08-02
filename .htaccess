@@ -1,0 +1,12 @@
+# caso o usuário digite algo nada a ver na barra do navegador
+
+# ativando modo de reescrita:
+RewriteEngine ON
+
+# reconhecer arquivos
+RewriteCond %{REQUEST_FILENAME} !-f
+
+#reconhecer diretórios
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(.*)$ index.php?router=$1 [QSA,L]
